@@ -1,0 +1,31 @@
+on:
+    push:
+        branches:
+          - master
+          - staging
+          - trying
+    pull_request:
+        branches:
+          - master
+jobs:
+    tests:
+        runs-on: ${{ matrix.os }}
+        steps:
+          - uses: actions/checkout@v2
+          - if: runner.os == 'Windows'
+            uses: seanmiddleditch/gha-setup-vsdevenv@v1
+          - if: runner.os == 'Linux'
+            run: cmake -B build -DCMAKE_C_COMPILER=gcc-9 -DCMAKE_CXX_COMPILER=g++-9
+          - if: runner.os == 'macOS'
+            run: cmake -B build
+          - if: runner.os == 'Windows'
+            run: cmake -B build -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -G Ninja
+          - run: cmake --build build
+          - run: ctest
+            working-directory: build
+        strategy:
+            matrix:
+                os:
+                  - macOS-latest
+                  - ubuntu-latest
+                  - windows-latest

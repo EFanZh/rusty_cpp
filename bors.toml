@@ -1,0 +1,8 @@
+status = [
+    "tests (macOS-latest)",
+    "tests (ubuntu-latest)",
+    "tests (windows-latest)"
+]
+
+delete_merged_branches = true
+use_squash_merge = true
