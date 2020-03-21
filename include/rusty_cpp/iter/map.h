@@ -18,8 +18,8 @@ class Iterator {
     using Category = C;
 
 #if __cplusplus > 201703L
-    template <>
-    using Category<std::contiguous_iterator_tag> = std::random_access_iterator_tag;
+    // template <>
+    // using Category<std::contiguous_iterator_tag> = std::random_access_iterator_tag;
 #endif
 
 public:
