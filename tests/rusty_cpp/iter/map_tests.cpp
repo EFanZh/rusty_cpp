@@ -220,8 +220,9 @@ TEST(IterMap, Subscript) {
 
     auto mapped = make_iterable(source).map([](auto &x) -> decltype(auto) { return x; });
     auto it = mapped.begin();
+    auto num_items = static_cast<ptrdiff_t>(mapped.size());
 
-    for (auto i = ptrdiff_t{0}; i != mapped.size(); ++i) {
+    for (auto i = ptrdiff_t{0}; i != num_items; ++i) {
         it[i].first -= 1;
         it[i].second /= 2;
     }

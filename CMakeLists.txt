@@ -68,7 +68,18 @@ if(STANDALONE_PROJECT)
                                      CXX_STANDARD_REQUIRED ON)
 
     if(MSVC)
-        target_compile_options(rusty_cpp_tests PRIVATE "/W4" "/WX" "/experimental:external" "/external:W0")
+        target_compile_options(
+            rusty_cpp_tests
+            PRIVATE
+            "/W4"
+            "/we4287" # 'operator': unsigned/negative constant mismatch
+            "/we4365" # 'action': conversion from 'type_1' to 'type_2', signed/unsigned mismatch
+            "/we4388" # signed/unsigned mismatch
+            "/we4826" # Conversion from 'type1' to 'type2' is sign-extended. This may cause unexpected runtime behavior.
+            "/WX"
+            "/experimental:external"
+            "/external:W0"
+        )
     else()
         target_compile_options(rusty_cpp_tests PRIVATE "-Wall" "-Wextra" "-Wpedantic" "-Wconversion" "-Werror")
     endif()

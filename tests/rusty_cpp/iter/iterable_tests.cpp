@@ -122,7 +122,7 @@ TEST(IterIterable, OwnedBeginEnd) {
 TEST(IterIterable, OwnedSize) {
     auto iterable = make_iterable(vector<int>{2, 3, 5, 7, 11});
 
-    ASSERT_EQ(iterable.size(), 5);
+    ASSERT_EQ(iterable.size(), size_t{5});
 }
 
 TEST(IterIterable, NotOwnedBeginEnd) {
@@ -160,5 +160,5 @@ TEST(IterIterable, NotOwnedSize) {
     auto data = vector<int>{2, 3, 5, 7, 11};
     auto iterable = make_iterable(data);
 
-    ASSERT_EQ(iterable.size(), 5);
+    ASSERT_EQ(iterable.size(), size_t{5});
 }
