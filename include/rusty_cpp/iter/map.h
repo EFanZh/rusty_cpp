@@ -2,11 +2,12 @@
 #define RUSTY_CPP_ITER_MAP_H
 
 #include <iterator>
+#include <rusty_cpp/iter/utilities.h>
 
 namespace rusty_cpp::iter::map {
 template <class I, class F>
 class Iterator {
-    static_assert(std::is_object_v<I> && !std::is_const_v<I>);
+    static_assert(utilities::IsGoodObjectMemberV<I>);
     static_assert(std::is_lvalue_reference_v<F>);
 
     using MappedType = decltype(std::declval<const F &>()(*std::declval<I>()));
@@ -14,20 +15,17 @@ class Iterator {
     I iter;
     F f;
 
-    template <class C>
-    using Category = C;
-
-#if __cplusplus > 201703L
-    // template <>
-    // using Category<std::contiguous_iterator_tag> = std::random_access_iterator_tag;
-#endif
+    using BaseCategory = typename std::iterator_traits<I>::iterator_category;
 
 public:
     using difference_type = typename std::iterator_traits<I>::difference_type;
     using value_type = std::remove_reference_t<MappedType>;
     using pointer = std::conditional_t<std::is_reference_v<MappedType>, value_type *, void>;
     using reference = std::conditional_t<std::is_reference_v<MappedType>, MappedType, void>;
-    using iterator_category = Category<typename std::iterator_traits<I>::iterator_category>;
+
+    using iterator_category = std::conditional_t<std::is_base_of_v<std::random_access_iterator_tag, BaseCategory>,
+                                                 std::random_access_iterator_tag,
+                                                 BaseCategory>;
 
     Iterator(I iter, F f) : iter{iter}, f{f} {
     }
