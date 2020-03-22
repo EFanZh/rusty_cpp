@@ -57,9 +57,11 @@ if(STANDALONE_PROJECT)
 
     add_executable(
         rusty_cpp_tests
-        tests/rusty_cpp/iter/iterable_tests.cpp
-        tests/rusty_cpp/iter/map_tests.cpp
-        tests/rusty_cpp/iter_tests.cpp
+        "tests/rusty_cpp/iter/enumerate_tests.cpp"
+        "tests/rusty_cpp/iter/iterable_tests.cpp"
+        "tests/rusty_cpp/iter/map_tests.cpp"
+        "tests/rusty_cpp/iter/utilities_tests.cpp"
+        "tests/rusty_cpp/iter_tests.cpp"
     )
 
     set_target_properties(rusty_cpp_tests

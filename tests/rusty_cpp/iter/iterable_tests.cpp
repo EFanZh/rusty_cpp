@@ -162,3 +162,13 @@ TEST(IterIterable, NotOwnedSize) {
 
     ASSERT_EQ(iterable.size(), size_t{5});
 }
+
+TEST(IterIterable, Collect) {
+    auto data = vector<int>{2, 3, 5, 7, 11};
+    auto expected = set<int>{2, 3, 5, 7, 11};
+    auto collected_1 = make_iterable(data).collect<set<int>>();
+    auto collected_2 = make_iterable(vector<int>{2, 3, 5, 7, 11}).collect<set<int>>();
+
+    ASSERT_EQ(collected_1, expected);
+    ASSERT_EQ(collected_2, expected);
+}
