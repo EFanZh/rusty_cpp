@@ -53,7 +53,7 @@ public:
     }
 
     auto operator[](difference_type key) const {
-        return std::make_tuple(this->count + static_cast<N>(key), this->iter[std::forward<K>(key)]);
+        return reference{this->count + static_cast<N>(key), this->iter[key]};
     }
 };
 
@@ -98,7 +98,7 @@ public:
 template <class C, class N>
 Enumerate<C, N> make_enumerate(C &&container, N &&count) {
     return Enumerate<C, N>{std::forward<C>(container), std::forward<N>(count)};
-};
+}
 } // namespace rusty_cpp::iter::enumerate
 
 #endif // RUSTY_CPP_ITER_ENUMERATE_H
