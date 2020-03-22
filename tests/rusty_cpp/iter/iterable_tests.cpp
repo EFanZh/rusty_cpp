@@ -5,13 +5,13 @@
 
 using rusty_cpp::iter::iterable::Iterable;
 using rusty_cpp::iter::iterable::make_iterable;
+using rusty_cpp::iter::utilities::RemoveCVRefT;
 using std::as_const;
 using std::begin;
 using std::declval;
 using std::end;
 using std::is_same_v;
 using std::make_tuple;
-using std::remove_cvref_t;
 using std::set;
 using std::size;
 using std::vector;
@@ -21,7 +21,7 @@ template <class C>
 struct CheckContainer {
     // Precondition.
 
-    static_assert(is_same_v<C, remove_cvref_t<C>>);
+    static_assert(is_same_v<C, RemoveCVRefT<C>>);
 
     // Type definitions.
 
